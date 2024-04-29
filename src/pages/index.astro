@@ -2,81 +2,208 @@
 
 ---
 
-<html lang='en'>
+<html lang="en">
   <head>
-    <meta charset='utf-8' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <meta name='viewport' content='width=device-width' />
-    <meta name='generator' content={Astro.generator} />
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <title>Tic Tac Toe</title>
   </head>
+
   <body>
-    <h1>TicTacToe - Sistemas Inteligentes</h1>
-    <div>
-      <button class='difficultyButton'>Fácil</button>
-      <button class='difficultyButton'>Medio</button>
-      <button class='difficultyButton'>Difícil</button>
-      <button class='difficultyButton'>Extremo</button>
+    <div class="copyright">
+      <span>Desarrollado por</span>
+      <span class="big">Emiliano Rios</span>
+      <span class="big">Lautaro Aboueid</span>
+      <span>2024</span>
     </div>
-    <div class='gameTable'>
+    <img src="/logo/logo.svg" alt="Logo TickyTacka" width="420" height="162" />
+    <div class="button-group">
+      <button class="difficultyButton">Fácil</button>
+      <button class="difficultyButton">Medio</button>
+      <button class="difficultyButton">Difícil</button>
+      <button class="difficultyButton">Extremo</button>
+    </div>
+    <div class="gameTable">
       <table>
         <tbody>
           <tr>
-            <td class='cell' id='0'></td>
-            <td class='cell' id='1'></td>
-            <td class='cell' id='2'></td>
+            <td class="cell" id="0"></td>
+            <td class="cell" id="1"></td>
+            <td class="cell" id="2"></td>
           </tr>
           <tr>
-            <td class='cell' id='3'></td>
-            <td class='cell' id='4'></td>
-            <td class='cell' id='5'></td>
+            <td class="cell" id="3"></td>
+            <td class="cell" id="4"></td>
+            <td class="cell" id="5"></td>
           </tr>
           <tr>
-            <td class='cell' id='6'></td>
-            <td class='cell' id='7'></td>
-            <td class='cell' id='8'></td>
+            <td class="cell" id="6"></td>
+            <td class="cell" id="7"></td>
+            <td class="cell" id="8"></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class='endGame'>
-      <div class='text'></div>
+    <button class="replayButton">Volver a jugar</button>
+    <div class="end-game-overlay">
+      <div class="endGame">
+        <div class="text"></div>
+      </div>
     </div>
-    <button class='replayButton'>Replay</button>
-    <script src='./scripts.js'></script>
   </body>
-  <style>
-    body {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 2rem;
-      text-align: center;
-      color: aliceblue;
-      background-color: #333;
-      font-family: 'Arial';
-    }
-
-    .gameTable {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .endGame {
-      display: none;
-    }
-
-    table {
-      color: aliceblue;
-    }
-
-    td {
-      border: 2px solid #fff;
-      height: 100px;
-      width: 100px;
-      font-size: 70px;
-      cursor: pointer;
-    }
-  </style>
 </html>
+
+<script src="./scripts.js"></script>
+
+<style is:global>
+  * {
+    font-family: "Poppins";
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    color: aliceblue;
+    background-color: #333;
+    font-family: "Arial";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 2rem);
+    position: relative;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .gameTable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .endGame {
+    display: none;
+  }
+
+  table {
+    color: aliceblue;
+    border-spacing: 10px;
+    margin: 0 0 50px 0;
+  }
+
+  tr td {
+    border-radius: 6px;
+    border: 1px solid white;
+    max-width: 100px;
+    max-height: 100px;
+    width: 100px;
+    height: 100px;
+    font-size: 56px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  td:hover {
+    cursor: pointer;
+    scale: 0.975;
+  }
+
+  .difficultyButton {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: greenyellow;
+    color: black;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .difficultyButton:hover,
+  .replayButton:hover {
+    filter: brightness(0.85);
+    scale: 0.95;
+    cursor: pointer;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  .replayButton {
+    padding: 12px 36px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+    position: relative;
+  }
+
+  .selected {
+    background-color: green;
+    color: white;
+  }
+
+  .end-game-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 0;
+  }
+
+  .text {
+    font-size: 128px;
+    font-weight: 900;
+  }
+
+  .vector {
+    width: 40px;
+    aspect-ratio: 1/1;
+  }
+  .copyright {
+    font-size: 32px;
+    line-height: 1.1em;
+    position: absolute;
+    top: 51.5%;
+    left: 12%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 200;
+    transform: rotate3d(0.8, 0.5, 0.4, -40deg);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .copyright:hover {
+    transform: rotate3d(0, 0, 0, 0deg);
+    cursor: pointer;
+  }
+
+  .big {
+    font-weight: 700;
+  }
+</style>
