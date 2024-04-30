@@ -2,68 +2,68 @@
 
 ---
 
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
+    <meta charset='utf-8' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.png' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='generator' content={Astro.generator} />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
+      href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'
+      rel='stylesheet'
     />
-    <title>Tic Tac Toe</title>
+    <title>TickyTacka</title>
   </head><body>
-    <div class="copyright">
+    <div class='copyright'>
       <span>Desarrollado por</span>
-      <span class="big">Emiliano Rios</span>
-      <span class="big">Lautaro Aboueid</span>
+      <span class='big'>Emiliano Rios</span>
+      <span class='big'>Lautaro Aboueid</span>
       <span>2024</span>
     </div>
-    <img src="/logo/logo.svg" alt="Logo TickyTacka" width="420" height="162" />
-    <div class="button-group">
-      <button class="difficultyButton">Fácil</button>
-      <button class="difficultyButton">Medio</button>
-      <button class="difficultyButton">Difícil</button>
-      <button class="difficultyButton">Extremo</button>
+    <img src='/logo/logo.svg' alt='Logo TickyTacka' width='420' height='162' />
+    <div class='button-group'>
+      <button class='difficultyButton'>Fácil</button>
+      <button class='difficultyButton'>Medio</button>
+      <button class='difficultyButton'>Difícil</button>
+      <button class='difficultyButton'>Extremo</button>
     </div>
-    <div class="gameTable">
+    <div class='gameTable'>
       <table>
         <tbody>
           <tr>
-            <td class="cell" id="0"></td>
-            <td class="cell" id="1"></td>
-            <td class="cell" id="2"></td>
+            <td class='cell' id='0'></td>
+            <td class='cell' id='1'></td>
+            <td class='cell' id='2'></td>
           </tr>
           <tr>
-            <td class="cell" id="3"></td>
-            <td class="cell" id="4"></td>
-            <td class="cell" id="5"></td>
+            <td class='cell' id='3'></td>
+            <td class='cell' id='4'></td>
+            <td class='cell' id='5'></td>
           </tr>
           <tr>
-            <td class="cell" id="6"></td>
-            <td class="cell" id="7"></td>
-            <td class="cell" id="8"></td>
+            <td class='cell' id='6'></td>
+            <td class='cell' id='7'></td>
+            <td class='cell' id='8'></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <button class="replayButton">Volver a jugar</button>
-    <div class="end-game-overlay">
-      <div class="endGame">
-        <div class="text"></div>
+    <button class='replayButton'>Volver a jugar</button>
+    <div class='end-game-overlay'>
+      <div class='endGame'>
+        <div class='text'></div>
       </div>
     </div>
   </body>
 </html>
 
 <script is:inline>
-  let origBoard;
-  let difficulty = "facil";
+  let origBoard
+  let difficulty = 'facil'
 
-  const huPlayer = { id: "O", icon: "/zero.svg" };
-  const aiPlayer = { id: "X", icon: "/equis.svg" };
+  const huPlayer = { id: 'O', icon: '/zero.svg' }
+  const aiPlayer = { id: 'X', icon: '/equis.svg' }
   const winCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -72,215 +72,215 @@
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [6, 4, 2],
-  ];
+    [6, 4, 2]
+  ]
 
   const statusGameVariables = {
-    tie: "Tie Game!",
-    win: "You win!",
-    lose: "You lose!",
-  };
+    tie: 'Tie Game!',
+    win: 'You win!',
+    lose: 'You lose!'
+  }
 
-  const button = document.querySelector(".replayButton");
-  button.addEventListener("click", startGame, false);
+  const button = document.querySelector('.replayButton')
+  button.addEventListener('click', startGame, false)
 
-  const cells = document.querySelectorAll(".cell");
-  startGame();
+  const cells = document.querySelectorAll('.cell')
+  startGame()
 
   function startGame() {
-    document.querySelector(".endGame").style.display = "none";
-    document.querySelector(".end-game-overlay").style.display = "none";
-    origBoard = Array.from(Array(9).keys());
+    document.querySelector('.endGame').style.display = 'none'
+    document.querySelector('.end-game-overlay').style.display = 'none'
+    origBoard = Array.from(Array(9).keys())
     for (let i = 0; i < cells.length; i++) {
-      cells[i].innerText = "";
-      cells[i].style.removeProperty("background-color");
-      cells[i].addEventListener("click", turnClick, false);
+      cells[i].innerText = ''
+      cells[i].style.removeProperty('background-color')
+      cells[i].addEventListener('click', turnClick, false)
     }
   }
 
   function turnClick(square) {
-    if (typeof origBoard[square.target.id] == "number") {
-      turn(square.target.id, huPlayer);
+    if (typeof origBoard[square.target.id] == 'number') {
+      turn(square.target.id, huPlayer)
       if (!checkWin(origBoard, huPlayer.id) && !checkTie())
-        turn(bestSpot(), aiPlayer);
+        turn(bestSpot(), aiPlayer)
     }
   }
 
   function turn(squareId, player) {
-    origBoard[squareId] = player.id;
+    origBoard[squareId] = player.id
     document.getElementById(squareId).innerHTML =
-      `<img class="vector" src="${player.icon}" />`;
-    const gameWon = checkWin(origBoard, player.id);
-    if (gameWon) gameOver(gameWon);
+      `<img class="vector" src="${player.icon}" />`
+    const gameWon = checkWin(origBoard, player.id)
+    if (gameWon) gameOver(gameWon)
   }
 
   function checkWin(board, player) {
     const plays = board.reduce(
       (a, e, i) => (e === player ? a.concat(i) : a),
       []
-    );
-    let gameWon = null;
+    )
+    let gameWon = null
     for (const [index, win] of winCombos.entries()) {
       if (win.every((elem) => plays.indexOf(elem) > -1)) {
-        gameWon = { index: index, player: player };
-        break;
+        gameWon = { index: index, player: player }
+        break
       }
     }
-    return gameWon;
+    return gameWon
   }
 
   function gameOver(gameWon) {
     for (const index of winCombos[gameWon.index]) {
       document.getElementById(index).style.backgroundColor =
-        gameWon.player == huPlayer.id ? "greenyellow" : "#EA3333";
+        gameWon.player == huPlayer.id ? 'greenyellow' : '#EA3333'
     }
     for (let i = 0; i < cells.length; i++) {
-      cells[i].removeEventListener("click", turnClick, false);
+      cells[i].removeEventListener('click', turnClick, false)
     }
-    declareWinner(gameWon.player == huPlayer.id ? "win" : "lose");
-    document.querySelector(".endGame .text").style.color =
-      gameWon.player == huPlayer.id ? "greenyellow" : "#EA3333";
+    declareWinner(gameWon.player == huPlayer.id ? 'win' : 'lose')
+    document.querySelector('.endGame .text').style.color =
+      gameWon.player == huPlayer.id ? 'greenyellow' : '#EA3333'
   }
 
   function declareWinner(who) {
-    document.querySelector(".endGame").style.display = "block";
-    document.querySelector(".endGame .text").innerText =
-      statusGameVariables[who];
-    document.querySelector(".end-game-overlay").style.display = "flex";
+    document.querySelector('.endGame').style.display = 'block'
+    document.querySelector('.endGame .text').innerText =
+      statusGameVariables[who]
+    document.querySelector('.end-game-overlay').style.display = 'flex'
   }
 
   function emptySquares() {
-    return origBoard.filter((s) => typeof s == "number");
+    return origBoard.filter((s) => typeof s == 'number')
   }
 
   function getRandomNumber(probabilities) {
-    const randomNumber = Math.random();
-    let cumulativeProbability = 0;
+    const randomNumber = Math.random()
+    let cumulativeProbability = 0
     for (let i = 0; i < probabilities.length; i++) {
-      cumulativeProbability += probabilities[i];
+      cumulativeProbability += probabilities[i]
       if (randomNumber < cumulativeProbability) {
-        return i;
+        return i
       }
     }
   }
 
   function bestSpot() {
-    const spots = emptySquares();
+    const spots = emptySquares()
 
-    const randomSpot = spots[Math.floor(Math.random() * spots.length)];
+    const randomSpot = spots[Math.floor(Math.random() * spots.length)]
 
     /* TODO CAMBIAR LA DIFICULTAD */
     const probabilityError = {
       extremo: 0.9,
       dificil: 0.7,
       medio: 0.5,
-      facil: 0.3,
-    };
+      facil: 0.3
+    }
 
     const errorProbably = getRandomNumber([
       probabilityError[difficulty],
-      1 - probabilityError[difficulty],
-    ]);
+      1 - probabilityError[difficulty]
+    ])
 
     if (errorProbably === 1) {
-      return randomSpot;
+      return randomSpot
     } else {
-      return minimax(origBoard, aiPlayer.id).index;
+      return minimax(origBoard, aiPlayer.id).index
     }
   }
 
   function checkTie() {
     if (emptySquares().length == 0) {
       for (let i = 0; i < cells.length; i++) {
-        cells[i].style.backgroundColor = "orange";
-        cells[i].removeEventListener("click", turnClick, false);
+        cells[i].style.backgroundColor = 'orange'
+        cells[i].removeEventListener('click', turnClick, false)
       }
-      document.querySelector(".endGame .text").style.color = "orange";
-      declareWinner("tie");
+      document.querySelector('.endGame .text').style.color = 'orange'
+      declareWinner('tie')
 
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 
   function minimax(newBoard, player) {
-    const availSpots = emptySquares();
+    const availSpots = emptySquares()
 
     if (checkWin(newBoard, huPlayer.id)) {
-      return { score: -10 };
+      return { score: -10 }
     } else if (checkWin(newBoard, aiPlayer.id)) {
-      return { score: 10 };
+      return { score: 10 }
     } else if (availSpots.length === 0) {
-      return { score: 0 };
+      return { score: 0 }
     }
-    const moves = [];
+    const moves = []
     for (let i = 0; i < availSpots.length; i++) {
-      const move = {};
-      move.index = newBoard[availSpots[i]];
-      newBoard[availSpots[i]] = player;
+      const move = {}
+      move.index = newBoard[availSpots[i]]
+      newBoard[availSpots[i]] = player
 
       if (player == aiPlayer.id) {
-        const result = minimax(newBoard, huPlayer.id);
-        move.score = result.score;
+        const result = minimax(newBoard, huPlayer.id)
+        move.score = result.score
       } else {
-        const result = minimax(newBoard, aiPlayer.id);
-        move.score = result.score;
+        const result = minimax(newBoard, aiPlayer.id)
+        move.score = result.score
       }
 
-      newBoard[availSpots[i]] = move.index;
+      newBoard[availSpots[i]] = move.index
 
-      moves.push(move);
+      moves.push(move)
     }
 
-    let bestMove;
+    let bestMove
     if (player === aiPlayer.id) {
-      let bestScore = -10000;
+      let bestScore = -10000
 
       for (let i = 0; i < moves.length; i++) {
         if (moves[i].score > bestScore) {
-          bestScore = moves[i].score;
-          bestMove = i;
+          bestScore = moves[i].score
+          bestMove = i
         }
       }
     } else {
-      let bestScore = 10000;
+      let bestScore = 10000
       for (let i = 0; i < moves.length; i++) {
         if (moves[i].score < bestScore) {
-          bestScore = moves[i].score;
-          bestMove = i;
+          bestScore = moves[i].score
+          bestMove = i
         }
       }
     }
 
-    return moves[bestMove];
+    return moves[bestMove]
   }
 
   function getAllElements(searchTerm) {
-    const elements = document.querySelectorAll(searchTerm);
-    return Array.from(elements);
+    const elements = document.querySelectorAll(searchTerm)
+    return Array.from(elements)
   }
 
-  const buttons = getAllElements(".difficultyButton");
+  const buttons = getAllElements('.difficultyButton')
 
   function normalizeString(string) {
     return string
       .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
   }
 
   buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      difficulty = normalizeString(button.textContent);
-      getAllElements(".selected").forEach((button) =>
-        button.classList.remove("selected")
-      );
-      button.classList.add("selected");
-    });
+    button.addEventListener('click', () => {
+      difficulty = normalizeString(button.textContent)
+      getAllElements('.selected').forEach((button) =>
+        button.classList.remove('selected')
+      )
+      button.classList.add('selected')
+    })
     if (difficulty === normalizeString(button.textContent)) {
-      button.classList.add("selected");
+      button.classList.add('selected')
     }
-  });
+  })
 </script>
 
 <style is:global>
@@ -290,7 +290,7 @@
   }
 
   * {
-    font-family: "Poppins";
+    font-family: 'Poppins';
     box-sizing: border-box;
   }
 
@@ -299,7 +299,7 @@
     padding: 2rem;
     text-align: center;
     color: aliceblue;
-    font-family: "Arial";
+    font-family: 'Arial';
     display: flex;
     flex-direction: column;
     align-items: center;
