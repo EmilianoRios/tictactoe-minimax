@@ -14,12 +14,6 @@
     />
     <title>TickyTacka</title>
   </head><body>
-    <div class='copyright'>
-      <span>Desarrollado por</span>
-      <span class='big'>Emiliano Rios</span>
-      <span class='big'>Lautaro Aboueid</span>
-      <span>2024</span>
-    </div>
     <img src='/logo/logo.svg' alt='Logo TickyTacka' width='420' height='162' />
     <div class='button-group'>
       <button class='difficultyButton'>Fácil</button>
@@ -54,6 +48,12 @@
       <div class='endGame'>
         <div class='text'></div>
       </div>
+    </div>
+    <div class='copyright'>
+      <span>Desarrollado por</span>
+      <span class='big'>Emiliano Rios</span>
+      <span class='big'>Lautaro Aboueid</span>
+      <span>2024</span>
     </div>
   </body>
 </html>
@@ -422,6 +422,12 @@
     font-weight: 200;
     transform: rotate3d(0.8, 0.5, 0.4, -40deg);
     transition: all 0.3s ease-in-out;
+  }
+
+  @media (max-width: 991px) {
+    .copyright {
+      display: none !important;
+    }
   }
 
   .copyright:hover {
