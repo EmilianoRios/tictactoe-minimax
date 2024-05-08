@@ -2,7 +2,7 @@
 
 ---
 
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
@@ -12,21 +12,26 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-    <title>Tic Tac Toe</title>
-  </head><body>
+    <title>TikyTacka</title>
+  </head>
+  <body>
+    <!-- Información de derechos de autor -->
     <div class="copyright">
       <span>Desarrollado por</span>
       <span class="big">Emiliano Rios</span>
       <span class="big">Lautaro Aboueid</span>
       <span>2024</span>
     </div>
+    <!-- Logo del juego -->
     <img src="/logo/logo.svg" alt="Logo TickyTacka" width="420" height="162" />
+    <!-- Grupo de botones para seleccionar la dificultad -->
     <div class="button-group">
       <button class="difficultyButton">Fácil</button>
       <button class="difficultyButton">Medio</button>
       <button class="difficultyButton">Difícil</button>
       <button class="difficultyButton">Extremo</button>
     </div>
+    <!-- Tabla del juego -->
     <div class="gameTable">
       <table>
         <tbody>
@@ -48,8 +53,9 @@
         </tbody>
       </table>
     </div>
-
+    <!-- Botón para reiniciar el juego -->
     <button class="replayButton">Volver a jugar</button>
+    <!-- Capa de superposición para el final del juego -->
     <div class="end-game-overlay">
       <div class="endGame">
         <div class="text"></div>
@@ -59,9 +65,11 @@
 </html>
 
 <script is:inline>
+  // Declaración de variables y constantes
   let origBoard;
   let difficulty = "facil";
 
+  // Configuración de jugadores y combinaciones ganadoras
   const huPlayer = { id: "O", icon: "/zero.svg" };
   const aiPlayer = { id: "X", icon: "/equis.svg" };
   const winCombos = [
@@ -75,18 +83,22 @@
     [6, 4, 2],
   ];
 
+  // Definición de mensajes de estado del juego
   const statusGameVariables = {
     tie: "Tie Game!",
     win: "You win!",
     lose: "You lose!",
   };
 
+  // Evento para reiniciar el juego al hacer clic en el botón de "Volver a jugar"
   const button = document.querySelector(".replayButton");
   button.addEventListener("click", startGame, false);
 
+  // Selección de todas las celdas del tablero y llamada a la función startGame()
   const cells = document.querySelectorAll(".cell");
   startGame();
 
+  // Función para iniciar el juego
   function startGame() {
     document.querySelector(".endGame").style.display = "none";
     document.querySelector(".end-game-overlay").style.display = "none";
@@ -98,6 +110,7 @@
     }
   }
 
+  // Función para manejar el clic en una celda
   function turnClick(square) {
     if (typeof origBoard[square.target.id] == "number") {
       turn(square.target.id, huPlayer);
@@ -106,6 +119,7 @@
     }
   }
 
+  // Función para realizar un movimiento en una celda
   function turn(squareId, player) {
     origBoard[squareId] = player.id;
     document.getElementById(squareId).innerHTML =
@@ -114,6 +128,7 @@
     if (gameWon) gameOver(gameWon);
   }
 
+  // Función para verificar si un jugador ha ganado
   function checkWin(board, player) {
     const plays = board.reduce(
       (a, e, i) => (e === player ? a.concat(i) : a),
@@ -129,6 +144,7 @@
     return gameWon;
   }
 
+  // Función para finalizar el juego
   function gameOver(gameWon) {
     for (const index of winCombos[gameWon.index]) {
       document.getElementById(index).style.backgroundColor =
@@ -142,6 +158,7 @@
       gameWon.player == huPlayer.id ? "greenyellow" : "#EA3333";
   }
 
+  // Función para declarar al ganador del juego
   function declareWinner(who) {
     document.querySelector(".endGame").style.display = "block";
     document.querySelector(".endGame .text").innerText =
@@ -149,10 +166,12 @@
     document.querySelector(".end-game-overlay").style.display = "flex";
   }
 
+  // Función para obtener las celdas vacías del tablero
   function emptySquares() {
     return origBoard.filter((s) => typeof s == "number");
   }
 
+  // Función para generar un número aleatorio dentro de un rango de probabilidades
   function getRandomNumber(probabilities) {
     const randomNumber = Math.random();
     let cumulativeProbability = 0;
@@ -164,12 +183,12 @@
     }
   }
 
+  // Función para determinar el mejor movimiento para la IA
   function bestSpot() {
     const spots = emptySquares();
 
     const randomSpot = spots[Math.floor(Math.random() * spots.length)];
 
-    /* TODO CAMBIAR LA DIFICULTAD */
     const probabilityError = {
       extremo: 0.9,
       dificil: 0.7,
@@ -189,6 +208,7 @@
     }
   }
 
+  // Función para verificar si el juego ha terminado en empate
   function checkTie() {
     if (emptySquares().length == 0) {
       for (let i = 0; i < cells.length; i++) {
@@ -203,6 +223,7 @@
     return false;
   }
 
+  // Función para implementar el algoritmo minimax
   function minimax(newBoard, player) {
     const availSpots = emptySquares();
 
@@ -255,13 +276,16 @@
     return moves[bestMove];
   }
 
+  // Función para obtener todos los elementos que coincidan con un selector CSS
   function getAllElements(searchTerm) {
     const elements = document.querySelectorAll(searchTerm);
     return Array.from(elements);
   }
 
+  // Selección de todos los botones de dificultad y asignación de eventos de clic
   const buttons = getAllElements(".difficultyButton");
 
+  // Función para normalizar un string
   function normalizeString(string) {
     return string
       .toLowerCase()
@@ -269,6 +293,7 @@
       .replace(/[\u0300-\u036f]/g, "");
   }
 
+  // Asignación de eventos de clic a los botones de dificultad
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
       difficulty = normalizeString(button.textContent);
